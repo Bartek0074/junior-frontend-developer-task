@@ -1,18 +1,35 @@
-<li class="list-group-item d-block">
-  <div [ngClass]="{ completed: task.status === 'Completed' }">
-    <input
-      type="checkbox"
-      class="form-check-input me-2"
-      [checked]="task.status === 'Completed'"
-      (change)="toggleCompleted()"
-    />
-    <b class="text-primary">{{ task.name }}</b>
-    <button class="btn btn-link" (click)="toggleDescription()">
-      {{ descVisible ? "ukryj opis" : "pokaż opis" }}
-    </button>
-    <br />
-    {{ task.date }} -
-    <span class="badge bg-info">{{ task.status }}</span>
-    <p *ngIf="descVisible">{{ task.description }}</p>
-  </div>
-</li>
+<li class="list-group-item px-3 py-3 mb-2 rounded shadow-sm bg-light">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-2">
+      <div>
+        <div class="d-flex align-items-start gap-2 mb-2">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [checked]="task.status === 'Completed'"
+            (change)="toggleCompleted()"
+          />
+          <label class="fw-bold mb-0">{{ task.name }}</label>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+          <small class="text-muted">{{ task.date }}</small>
+          <span class="badge px-2 bg-{{ getStatusColor(task.status) }}">
+            {{ task.status }}
+          </span>
+        </div>
+      </div>
+  
+      <div class="mt-2 mt-md-0">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="toggleDescription()"
+        >
+          {{ descVisible ? "Ukryj opis" : "Pokaż opis" }}
+        </button>
+      </div>
+    </div>
+  
+    <div *ngIf="descVisible" class="mt-2 pt-2 border-top">
+      <p class="mb-0 text-secondary">{{ task.description }}</p>
+    </div>
+  </li>
+  

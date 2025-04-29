@@ -21,4 +21,18 @@ export class TaskItemComponent {
   toggleDescription() {
     this.descVisible = !this.descVisible;
   }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'Completed':
+        return 'success';
+      case 'Pending':
+        return 'warning';
+      case 'Planned':
+        return 'info';
+      default:
+        return 'secondary';
+    }
+  }
+  
 }
