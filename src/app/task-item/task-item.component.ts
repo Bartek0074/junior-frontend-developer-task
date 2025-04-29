@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
+import { TaskStatus } from '../models/task.model';
 
 @Component({
   selector: 'app-task-item',
@@ -9,7 +10,12 @@ import { NgIf, NgClass } from '@angular/common';
   styleUrl: './task-item.component.scss',
 })
 export class TaskItemComponent {
-  @Input() task!: { name: string; status: string; date: string; description: string };
+  @Input() task!: {
+    name: string;
+    status: string;
+    date: string;
+    description: string;
+  };
   @Output() toggle = new EventEmitter<void>();
 
   descVisible: boolean = false;
@@ -22,17 +28,16 @@ export class TaskItemComponent {
     this.descVisible = !this.descVisible;
   }
 
-  getStatusColor(status: string): string {
+  getStatusColor(status: TaskStatus): string {
     switch (status) {
-      case 'Completed':
+      case TaskStatus.Completed:
         return 'success';
-      case 'Pending':
+      case TaskStatus.Pending:
         return 'warning';
-      case 'Planned':
+      case TaskStatus.Planned:
         return 'info';
       default:
         return 'secondary';
     }
   }
-  
 }
