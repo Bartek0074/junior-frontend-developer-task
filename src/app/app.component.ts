@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { Task, TaskStatus } from './models/task.model';
 
 @Component({
   selector: 'app-root',
-  imports: [NgClass, TaskItemComponent],
+  imports: [TaskItemComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,

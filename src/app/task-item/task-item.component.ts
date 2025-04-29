@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Task, TaskStatus } from '../models/task.model';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [NgIf],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss',
 })
