@@ -1,19 +1,18 @@
 <li class="list-group-item d-block">
-    <div [ngClass]="{ 'completed': task.status === 'Completed' }">
-      <input
-        type="checkbox"
-        class="form-check-input me-2"
-        [checked]="task.status === 'Completed'"
-        (change)="toggleCompleted()"
-      />
-      <b class="text-primary">{{ task.name }}</b>
-      <button class="btn btn-link" (click)="toggleDescription()">
-        {{ descVisible ? 'ukryj opis' : 'pokaż opis' }}
-      </button>
-      <br />
-      {{ task.date }} -
-      <span class="badge bg-info">{{ task.status }}</span>
-      <p *ngIf="descVisible">{{ task.description }}</p>
-    </div>
-  </li>
-  
+  <div [ngClass]="{ completed: task.status === 'Completed' }">
+    <input
+      type="checkbox"
+      class="form-check-input me-2"
+      [checked]="task.status === 'Completed'"
+      (change)="toggleCompleted()"
+    />
+    <b class="text-primary">{{ task.name }}</b>
+    <button class="btn btn-link" (click)="toggleDescription()">
+      {{ descVisible ? "ukryj opis" : "pokaż opis" }}
+    </button>
+    <br />
+    {{ task.date }} -
+    <span class="badge bg-info">{{ task.status }}</span>
+    <p *ngIf="descVisible">{{ task.description }}</p>
+  </div>
+</li>
