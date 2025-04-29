@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
-import { TaskStatus } from '../models/task.model';
+import { Task, TaskStatus } from '../models/task.model';
 
 @Component({
   selector: 'app-task-item',
@@ -10,12 +10,7 @@ import { TaskStatus } from '../models/task.model';
   styleUrl: './task-item.component.scss',
 })
 export class TaskItemComponent {
-  @Input() task!: {
-    name: string;
-    status: string;
-    date: string;
-    description: string;
-  };
+  @Input() task!: Task;
   @Output() toggle = new EventEmitter<void>();
 
   descVisible: boolean = false;
