@@ -1,0 +1,39 @@
+<div class="row mb-4 g-2">
+  <div class="col-12 col-md">
+    <label for="name" class="form-label">Nazwa</label>
+    <input
+      id="name"
+      type="text"
+      class="form-control"
+      placeholder="Nazwa"
+      [(ngModel)]="name"
+      (input)="onNameInput()"
+    />
+  </div>
+
+  <div class="col-6 col-md-auto">
+    <label for="date" class="form-label">Data</label>
+    <input
+      id="date"
+      type="date"
+      class="form-control date-picker"
+      [(ngModel)]="date"
+      (change)="onDateChange()"
+    />
+  </div>
+
+  <div class="col-6 col-md-auto">
+    <label for="status" class="form-label">Status</label>
+    <select
+      id="status"
+      class="form-select select"
+      [(ngModel)]="status"
+      (change)="onStatusChange()"
+    >
+      <option value="">Wszystkie statusy</option>
+      <option [value]="TaskStatus.Completed">Completed</option>
+      <option [value]="TaskStatus.Planned">Planned</option>
+      <option [value]="TaskStatus.Pending">Pending</option>
+    </select>
+  </div>
+</div>

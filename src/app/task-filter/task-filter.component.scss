@@ -1,0 +1,9 @@
+:host {
+  .date-picker,
+  .select {
+    width: 100%;
+    @media (min-width: 768px) {
+      width: 180px;
+    }
+  }
+}

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TaskItemComponent } from './task-item/task-item.component';
+import { TaskFilterComponent } from './task-filter/task-filter.component';
 import { Task, TaskStatus } from './models/task.model';
 
 @Component({
   selector: 'app-root',
-  imports: [TaskItemComponent],
+  standalone: true,
+  imports: [TaskItemComponent, TaskFilterComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: true,
 })
 export class AppComponent {
   title = 'junior-frontend-developer-task';
@@ -33,7 +35,18 @@ export class AppComponent {
     },
   ];
 
-  protected descVisible: boolean = false;
+  filterName: string = '';
+  filterDate: string = '';
+  filterStatus: TaskStatus | '' = '';
+
+  get filteredTasks(): Task[] {
+    return this.tasks.filter(
+      (task) =>
+        task.name.toLowerCase().includes(this.filterName.toLowerCase()) &&
+        (!this.filterDate || task.date === this.filterDate) &&
+        (!this.filterStatus || task.status === this.filterStatus)
+    );
+  }
 
   toggleCompleted(task: Task) {
     task.status =
