@@ -11,34 +11,39 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="onSubmit()">
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label class="form-label">Nazwa</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="name"
-              name="name"
-            />
+            <input type="text" class="form-control" formControlName="name" />
+            <div *ngIf="submitted && nameControl?.invalid" class="text-danger">
+              <small *ngIf="nameControl?.errors?.['required']"
+                >Nazwa jest wymagana.</small
+              >
+            </div>
           </div>
+
           <div class="mb-3">
             <label class="form-label">Data</label>
-            <input
-              type="date"
-              class="form-control"
-              [(ngModel)]="date"
-              name="date"
-            />
+            <input type="date" class="form-control" formControlName="date" />
+            <div *ngIf="submitted && dateControl?.invalid" class="text-danger">
+              <small *ngIf="dateControl?.errors?.['required']"
+                >Data jest wymagana.</small
+              >
+              <small *ngIf="dateControl?.errors?.['dateInvalid']"
+                >Data nie może być przeszła.</small
+              >
+            </div>
           </div>
+
           <div class="mb-3">
             <label class="form-label">Opis</label>
             <textarea
               class="form-control"
               rows="3"
-              [(ngModel)]="description"
-              name="description"
+              formControlName="description"
             ></textarea>
           </div>
+
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Zapisz</button>
             <button

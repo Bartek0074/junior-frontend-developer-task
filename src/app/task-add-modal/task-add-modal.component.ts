@@ -1,38 +1,51 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { TaskStatus } from '../models/task.model';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Task, TaskStatus } from '../models/task.model';
 
 @Component({
   selector: 'app-task-add-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './task-add-modal.component.html',
   styleUrls: ['./task-add-modal.component.scss'],
 })
 export class TaskAddModalComponent {
   @Output() close = new EventEmitter<void>();
-  @Output() add = new EventEmitter<{
-    name: string;
-    date: string;
-    description: string;
-    status: TaskStatus;
-  }>();
+  @Output() add = new EventEmitter<Task>();
 
-  name: string = '';
-  date: string = '';
-  description: string = '';
-  status: TaskStatus = TaskStatus.Planned;
-
+  taskForm: FormGroup;
+  submitted = false;
   TaskStatus = TaskStatus;
 
+  constructor(private fb: FormBuilder) {
+    this.taskForm = this.fb.group({
+      name: ['', Validators.required],
+      date: ['', [Validators.required, TaskAddModalComponent.futureDateValidator]],
+      description: [''],
+    });
+  }
+
+  static futureDateValidator(control: any) {
+    const input = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); 
+    return input < today ? { dateInvalid: true } : null;
+  }
+
+  get nameControl() {
+    return this.taskForm.get('name');
+  }
+
+  get dateControl() {
+    return this.taskForm.get('date');
+  }
+
   onSubmit() {
-    if (this.name && this.date) {
-      this.add.emit({
-        name: this.name,
-        date: this.date,
-        description: this.description,
-        status: TaskStatus.Planned,
-      });
+    this.submitted = true;
+    if (this.taskForm.valid) {
+      const { name, date, description } = this.taskForm.value;
+      this.add.emit({ name, date, description, status: TaskStatus.Planned });
       this.onClose();
     }
   }
