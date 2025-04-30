@@ -3,7 +3,7 @@
     class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2"
   >
     <h3 class="mb-0">Lista zadań</h3>
-    <button class="btn btn-primary">Nowe zadanie</button>
+    <button class="btn btn-primary" (click)="openModal()">Nowe zadanie</button>
   </div>
 
   <app-task-filter
@@ -21,3 +21,9 @@
     }
   </ul>
 </div>
+
+<app-task-add-modal
+  *ngIf="showModal"
+  (close)="closeModal()"
+  (add)="addTask($event)"
+></app-task-add-modal>

@@ -1,15 +1,23 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { TaskFilterComponent } from './task-filter/task-filter.component';
+import { TaskAddModalComponent } from './task-add-modal/task-add-modal.component';
 import { Task, TaskStatus } from './models/task.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TaskItemComponent, TaskFilterComponent, FormsModule],
+  imports: [
+    TaskItemComponent,
+    TaskFilterComponent,
+    TaskAddModalComponent,
+    FormsModule,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'junior-frontend-developer-task';
@@ -39,6 +47,8 @@ export class AppComponent {
   filterDate: string = '';
   filterStatus: TaskStatus | '' = '';
 
+  showModal: boolean = false;
+
   get filteredTasks(): Task[] {
     return this.tasks.filter(
       (task) =>
@@ -53,5 +63,22 @@ export class AppComponent {
       task.status === TaskStatus.Completed
         ? TaskStatus.Planned
         : TaskStatus.Completed;
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  addTask(task: {
+    name: string;
+    date: string;
+    description: string;
+    status: TaskStatus;
+  }) {
+    this.tasks.push(task);
   }
 }
